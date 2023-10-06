@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('manage');
 });
 Route::get('/manage',function() {return view('manage');});
-Route::get('/test',function() {return view('test');});
+Route::get('/Notification',function() {return view('Notification');});
 
 Route::get('supplier',[supplierController::class,'index']);
 //Route::POST('/supplier',[supplierController::class,'index']);

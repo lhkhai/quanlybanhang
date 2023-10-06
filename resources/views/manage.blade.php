@@ -10,12 +10,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <!--Boostrap 3 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>     
+    <script type="text/javascript" src="{{asset('/js/jssupplier.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssAdmin.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssNcc.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssGeneral.css')}}">
+    <script type="module" src="{{asset('/js/jssupplier.js')}}"></script>  
 </head>
 <body style="background-color:#F5F8FD"> 
+    
     <div class='container'>
        <div class='navigation'> 
             <ul>
@@ -88,8 +91,9 @@
         </div> <!--footer -->
 
     </div>
-       
+    
 </body>
+
 <script>
     let menuToggle = document.querySelector('.toggle');
     let divContent = document.querySelector('.content');

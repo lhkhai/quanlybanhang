@@ -34,6 +34,10 @@ tbody {background-color: white;
     top: 30px;
     background-color: blue;
 }
+.table_empty { height: 20px;
+            width: 100%;
+            color: blue;
+            background-color: yellow;}
 .phantrang {position: fixed;
         left: 35%;
         bottom: 15px;
