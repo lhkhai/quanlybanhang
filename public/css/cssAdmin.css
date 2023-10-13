@@ -93,12 +93,11 @@ padding-left: 30px;
 .content {
     position: fixed;
     top:5px;
-    right: 2px;
+    right: 2px;    
     width: calc(95% - 15px);    
     box-sizing: border-box;
     transition: 0.4s;   
-    /*border: 2px solid yellow;*/
-    height: 600px;
+    height: 90%;
     box-sizing: border-box;
 }
 .content.active {

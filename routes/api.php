@@ -18,11 +18,10 @@ use App\Http\Controllers\Api\supplierController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('supplier',[SupplierController::class,'index']);
-//Route::post('supplier',[SupplierController::class,'store']);
-Route::get('supplier/{id}',[SupplierController::class,'show']);
-Route::get('supplier/{id}/edit',[SupplierController::class,'edit']);
-Route::put('supplier/{id}/edit',[SupplierController::class,'update']);
-Route::delete('supplier/{id}/delete',[SupplierController::class,'destroy']);
-Route::post('supplier/{id}/edit',[SupplierController::class,'update']); ////test update bằng method post
-Route::post('supplier',[SupplierController::class,'test']);
+Route::get('supplier',[SupplierController::class,'index']); //show table
+Route::post('supplier',[SupplierController::class,'store']); //add supplier
+Route::get('supplier/{id}',[SupplierController::class,'show']); 
+Route::get('supplier/{id}/edit',[SupplierController::class,'edit']); //show info supplier
+Route::post('supplier/{id}/edit',[SupplierController::class,'update']); //update info supplier
+Route::get('supplier/{id}/delete',[SupplierController::class,'destroy']); //delete supplier
+Route::get('supplier/{code}/find',[SupplierController::class,'findbycode']); //find supplier by code

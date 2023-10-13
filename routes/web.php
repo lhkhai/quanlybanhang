@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\supplierController;
+use App\Models\supplier;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,13 @@ Route::get('/', function () {
 Route::get('/manage',function() {return view('manage');});
 Route::get('/Notification',function() {return view('Notification');});
 
-Route::get('supplier',[supplierController::class,'index']);
+//Route::get('supplier',[supplierController::class,'index']);
+Route::get('/supplier',[SupplierController::class,'index']);
 //Route::POST('/supplier',[supplierController::class,'index']);
+Route::get('/tsupplier',function(){
+
+    $supplier = supplier::paginate(10);
+    return view("/supplier.Tsupplier")->with(['supplier'=>$supplier]);
+});
+Route::get('/seeder',[SupplierController::class,'seeder']);
 

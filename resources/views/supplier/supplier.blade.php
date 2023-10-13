@@ -1,7 +1,11 @@
 @extends('manage')
+@section('title')Suppliers @endsection
 @section('content')
 <script>
   $(document).ready(function(){
+   
+  
+
   $("#sdtncc").blur(function(){
     var regExp = /^(0[235789][0-9]{8}$)/;
     var phone = document.getElementById("sdtncc").value;
@@ -9,7 +13,8 @@
         alert('Số điện thoại không hợp lệ!');
 });
 });
-  </script>
+</script>
+  
 <div id="title_ncc">DANH SÁCH NHÀ CUNG CẤP 
 <input id="addncc" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" value="+ Thêm" />
 </div>
@@ -19,13 +24,30 @@
           <tr class='title_table_ncc'><th class='stt'>STT</th><th class='mancc'>Mã NCC</th><th class='tenncc'>Tên NCC</th><th class='diachincc'>Địa chỉ NCC</th><th class='sdtncc'>Số điện thoại</th><th class='ttthanhtoan'>Email</th><th class='ttthanhtoan'>TT Thanh toán</th><th class='ghichu'>Ghi chú</th><th class="thaotac">Thao tác</th></tr>
       </thead>
     <tbody id = 'list_ncc'>    
-            <!--  Hiển thị nội dung table -->  
-            <script>load();</script>
-            
+            <!--  Hiển thị nội dung table --> 
+          <script>//load()</script>
+          @if(isset($pag_supplier))
+           
+            @foreach($pag_supplier as $stt=>$value)
+            <tr><td>{{$stt+1}}</td><td>{{$value->mancc}}</td><td>{{$value->tenncc}}</td><td>{{$value->diachincc}}</td>
+            <td>{{$value->sdtncc}}</td><td>{{$value->emailncc}}</td><td>{{$value->ttthanhtoan}}</td><td>{{$value->ghichu}}</td>
+            <td>
+              <a  class="btnEdit" href="#" value="{{$value->id}}" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit"  src="icons/icon_edit.png" /></a>                
+              <a style="margin-left: 15px;" value="{{$value->id}}" class="btnDelete" href="#" ><img   class="icon_delete" src="icons/icon_delete.png" /></a>                 
+            </td>
+            @endforeach
+          @endif
     </tbody>
   </table>
+  
 </div>
-<div class="phantrang">Phân trang</div>
+<div class="pag_supplier">
+    <div>
+    {{$pag_supplier->links('pagination')}} 
+    </div>
+    <div class='total_record_supplier' > Tổng: {{$pag_supplier->total()}} dòng, {{$pag_supplier->lastPage()}} trang.
+    <div>
+  </div>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">         
       
@@ -145,7 +167,7 @@
     </div>
     </div>
         <div class="modal-footer">
-            <input id='btnEditNcc' type="button" onclick="UpdateSupplier()" class="btn btn-primary" value="Cập nhật" />
+            <input id='btnEditNcc' type="button"  class="btn btn-primary" value="Cập nhật" />
             <input id='btnDismiss' type="button" class="btn btn-primary" data-dismiss="modal" value="Thoát" />
         </div>
       </div>
@@ -159,5 +181,5 @@ $(document).ready(function(){
             });   
 });
 </script>  
-@include('Notification');  
+  
 @endsection

@@ -1,15 +1,6 @@
 @extends('manage')
 @section('content')
-<script>
-  
-$(document).ready(function(){  
-      var mancc = $(this).parents("tr").find(".mancc").text();
-      $.get("http://localhost/banhang/public/api/supplier/",
-         function(data,status){
-          alert("data");        
-        });  
-  });
-</script>
+
 <script>
   $(document).ready(function(){
   $("#sdtncc").blur(function(){
@@ -30,7 +21,7 @@ $(document).ready(function(){
       </thhead>
       <thbody>
     <?php $stt=1; ?>
-      @foreach ($db as $row) 
+      @foreach ($supplier as $row) 
          
       <tr>
       <td class="idncc">{{$row->id}}</td>
@@ -48,153 +39,13 @@ $(document).ready(function(){
       </td>
       </tr>
       
-      endforeach
+      @endforeach
       
       </thbody>
   </table>
-</div>
-<div class="phantrang">Phân trang</div>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">         
-      
-      <div class="modal-content">
-       <div class="modal-header">
-          <button style="color: white" type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Cập nhật thông tin nhà cung cấp</h4>
-        </div>
-        <div class="modal-body">
-    <form id= "formAddNcc" class="form-horizontal" action="{{asset('/editsupplier')}}" enctype="multipart/form-data" method="POST"> 
-    @csrf
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Mã NCC:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text"  name="mancc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Tên NCC:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="tenncc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Địa chỉ:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="diachincc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Số điện thoại:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="sdtncc" maxlenght="10" name="sdtncc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="email">Email:</label>
-      <div class="col-sm-9">
-        <input type="email" class="form-control" id="text" name="emailncc" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">TT Thanh Toán</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="ttthanhtoan" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Ghi chú:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="ghichu" />
-      </div>
-    </div>
-    </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" value="Cập nhật" >cập nhật</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
-        </div>
-      </div>
-  </form>
-  </div> <!------------------------------------ Form thêm ---------------------------------------------------------->
   
-  <!------------------------------------ Form cập nhật------------------------------------------------------>
-  <div class="modal fade" id="myModalupdate" role="dialog">
-    <div class="modal-dialog">         
-      
-      <div class="modal-content">
-       <div class="modal-header">
-          <button style="color: white" type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">THÊM NHÀ CUNG CẤP</h4>
-        </div>
-        <div class="modal-body">
-    <form class="form-horizontal" action="{{asset('/editsupplier')}}" enctype="multipart/form-data" method="POST"> <!-----------Form thêm nhà cung cấp ---------------->
-    @csrf
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Mã NCC:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text"  name="mancc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Tên NCC:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="tenncc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Địa chỉ:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="diachincc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Số điện thoại:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="sdtncc" maxlenght="10" name="sdtncc" required />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="email">Email:</label>
-      <div class="col-sm-9">
-        <input type="email" class="form-control" id="text" name="emailncc" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">TT Thanh Toán</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="ttthanhtoan" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-3" for="text">Ghi chú:</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="text" name="ghichu" />
-      </div>
-    </div>
-    </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" value="Thêm" >Thêm</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
-        </div>
-      </div>
-  </form>
-  </div> <!---------------------------Form cập nhật------------------------------------------------> 
-   
-    <script>
-      /* Chuyển form myModal ra thẻ ngoài cùng tránh lỗi popup bị mờ*/
-    $(document).ready(function(){
-            $("#addncc").click(function(){
-                $('#myModal').appendTo("body");
-            });
-            $("#editsupplier").click(function(){
-              $('#myModalupdate').appendTo("body");
-            });
-        });
-        </script>
-    
-       @if(session('Notification')) 
-      <script type='text/javascript'>
-        window.alert("Thêm thành công")
-      </script>           
-        @endif
+</div>
+<div class="paginationWrap">{{$supplier->links()}}</div>
+  
     
 @endsection

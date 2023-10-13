@@ -10,7 +10,7 @@ class SupplierController extends Controller
     
     public function index()
     {
-       $suppliers = supplier::all();
+       $suppliers = \DB::table('suppliers')->paginate(10);
        if($suppliers->count()>0){       
        return response()->json([
             'status_code'=> 200,
@@ -24,43 +24,56 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $validator = Validator::make($request->all(),[
-             'mancc' => 'required|string|max:50',
-            'tenncc' => 'required|string|max:200',
-            'diachincc' => 'required|string|max:200',
-            'sdtncc' => 'required|string|max:11',
-            'emailncc' => 'required|string|max:50',  
-        ]);
-        if($validator->fails())
+        $mancc = $request->mancc;
+        $suppliers = \DB::table('suppliers')->where('mancc', $mancc)->get();
+        $countrecord = $suppliers->count();
+        if($countrecord>0)
         {
-            return response()->JSON([
-                'status'=> 422,
-                'message' => $validator->messages()
-            ]);
-        } else {
-             $supplier = supplier::create([
-                'mancc' => $request->mancc,
-                'tenncc' => $request->tenncc,
-                'diachincc' => $request->diachincc,
-                'sdtncc' => $request->sdtncc,
-                'emailncc' => $request->emailncc,
-                'ttthanhtoan' => $request->ttthanhtoan,
-                'ghichu' => $request->ghichu]);  
-                
-            if($supplier)
-            {
-                return response()->JSON([
-                    'status' => 200,
-                    'message' => 'Thêm dữ liệu thành công!'
-                ],200);
-            } else {
-                return response()->JSON([
-                    'status' => 500,
-                    'message' => 'Đã có lỗi xãy ra. Liên hệ Admin để được hỗ trợ.'
-                ],500);
-            }
- 
+            return response()->json([
+                'message_code'=> 111,
+                'message'=> 'Mã nhà cung cấp đã tồn tại.'],200);
         }
+        else {
+            $validator = Validator::make($request->all(),[
+                'mancc'=> 'required|string|max: 50',
+                'tenncc'=> 'required|string|max: 200',
+                'diachincc'=> 'required|string|max: 200',
+                'sdtncc' => 'required|string|max: 11',
+                'emailncc'=> 'required'
+            ]);
+            if($validator->fails()){
+                return response()->json([
+                    'message_code'=> 112,
+                    'message' => 'Vui lòng nhập đầy đủ thông tin bắt buộc.'
+                ],200);
+            }
+            else {
+                $supplier = supplier::create([
+                    'mancc' => $request->mancc,
+                    'tenncc' => $request->tenncc,
+                    'diachincc' => $request->diachincc,
+                    'sdtncc' => $request->sdtncc,
+                    'emailncc' => $request->emailncc,
+                    'ttthanhtoan' => $request->ttthanhtoan,
+                    'ghichu' => $request->ghichu
+                ]);
+                $len = supplier::all()->count();
+                if($supplier){
+                    return response()->json([
+                    'message_code'=> 200,
+                    'message'=>'Đã thêm nhà cung cấp!',
+                    'mancc'=> $request->mancc,
+                    'len' => $len
+                    ],200);
+                }
+                else {
+                    return response()->json([
+                        'message_code'=> 500,
+                        'message'=>'Lỗi. Vui lòng liên hệ Admin để được hỗ trợ!'
+                    ],500);
+                }
+            }
+         }
     }
     public function show($id)
     {
@@ -108,6 +121,7 @@ class SupplierController extends Controller
             ]);
           return response()->JSON([
                     'status'=>200,
+                    'supplier' => $supplier,
                     'message'=> "Cập nhật thành công!"
                 ],200);
         } else {
@@ -136,56 +150,18 @@ class SupplierController extends Controller
             ],404);
         }
     }
-
-    public function test(Request $request)
-    {
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $mancc = $request->mancc;
-        $suppliers = \DB::table('suppliers')->where('mancc', $mancc)->get();
-        $countrecord = $suppliers->count();
-        if($countrecord>0)
+    public function findbycode($code)
+    {       
+        
+        $supplier = supplier::where("mancc",$code)->first();
+        if($supplier->count()>0)
         {
-            return response()->json([
-                'message_code'=> 111,
-                'message'=> 'Mã nhà cung cấp đã tồn tại.'],200);
+            return response()->JSON(['data'=>$supplier],200);
+        } 
+        else 
+        {
+            return response()->JSON(['message'=> "Not found!"]);
         }
-        else {
-            $validator = Validator::make($request->all(),[
-                'mancc'=> 'required|string|max: 50',
-                'tenncc'=> 'required|string|max: 200',
-                'diachincc'=> 'required|string|max: 200',
-                'sdtncc' => 'required|string|max: 11',
-                'emailncc'=> 'required'
-            ]);
-            if($validator->fails()){
-                return response()->json([
-                    'message_code'=> 112,
-                    'message' => 'Vui lòng nhập đầy đủ thông tin bắt buộc.'
-                ],200);
-            }
-            else {
-                $supplier = supplier::create([
-                    'mancc' => $request->mancc,
-                    'tenncc' => $request->tenncc,
-                    'diachincc' => $request->diachincc,
-                    'sdtncc' => $request->sdtncc,
-                    'emailncc' => $request->emailncc,
-                    'ttthanhtoan' => $request->ttthanhtoan,
-                    'ghichu' => $request->ghichu
-                ]);
-                if($supplier){
-                    return response()->json([
-                    'message_code'=> 200,
-                    'message'=>'Đã thêm nhà cung cấp!'
-                ],200);
-                }
-                else {
-                    return response()->json([
-                        'message_code'=> 500,
-                        'message'=>'Lỗi. Vui lòng liên hệ Admin để được hỗ trợ!'
-                    ],500);
-                }
-            }
-         }
     }
+    
 }

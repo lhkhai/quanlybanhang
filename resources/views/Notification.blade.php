@@ -19,8 +19,7 @@
     
   }
   #Noti_body{    
-    height: 70px;
-    
+    height: 70px;    
   }
   #Noti_footer{ height: 40px;
           background-color: #EEEEEE}

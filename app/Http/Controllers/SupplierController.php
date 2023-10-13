@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\supplier;
+use Carbon\carbon;
 
 class SupplierController extends Controller
 {
@@ -13,14 +15,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        /* $suppliers = \App\Models\supplier::all();
-        $arr = [
-        'status' => true,
-        'message' => "Danh sách sản phẩm",
-        'data'=>\App\Http\Resources\supplier::collection($suppliers)
-        ];
-        return response()->json($arr, 200); */
-        return view('supplier.supplier');
+        $supplier = supplier::paginate(10);
+    
+        return view('supplier.supplier')->with(['pag_supplier'=>$supplier]);
     }
 
     /**
@@ -109,5 +106,15 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function seeder()
+    {
+        $mail = '@gmail.com';
+        for($i=0;$i<=1000;$i++)
+        {
+            \DB::table('suppliers')->insert(['mancc'=> \Str::random(20),'tenncc'=> \Str::random(50),
+            'diachincc'=> \Str::random(50),'sdtncc'=> \Str::random(11),'emailncc'=>\Str::random(20).$mail,
+            'ttthanhtoan'=> \Str::random(50),'ghichu'=>\Str::random(10),'created_at'=> Carbon::now()]);
+        }
     }
 }

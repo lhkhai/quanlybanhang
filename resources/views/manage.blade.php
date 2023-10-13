@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssAdmin.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssNcc.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssGeneral.css')}}">
-    <script type="module" src="{{asset('/js/jssupplier.js')}}"></script>  
+    <!-- <script type="module" src="{{asset('/js/jssupplier.js')}}"></script>   -->
 </head>
 <body style="background-color:#F5F8FD"> 
     
@@ -93,7 +93,7 @@
     </div>
     
 </body>
-
+@include('Notification') <!--Include notification page -->
 <script>
     let menuToggle = document.querySelector('.toggle');
     let divContent = document.querySelector('.content');
@@ -104,4 +104,5 @@
         divContent.classList.toggle('active');
     }
     </script>
+    
 </html>
