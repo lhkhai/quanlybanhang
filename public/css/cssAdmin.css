@@ -46,25 +46,35 @@ body{
     position:relative;
     display: none;
 }
-.navigation ul li ul li{height: inherit;
+.navigation ul li ul li{
+   
+height: inherit;
 width: 100%;
 line-height: 30px;
-padding-left: 30px;
+padding-left: 10px;
 }
 .navigation ul li:hover ul {
-        display: inline-block;
+         display: inline-block;        
         position: relative;
         top:0px;        
     }
-.navigation ul li ul li:hover{background-color:white;
-        color: blue;/*rgb(136, 136, 129);*/
+.navigation ul li ul li:hover{
+        background-color:white;
+        
         
 }
+.navigation ul li ul li a {
+display: inline;
+margin-left:5px;
+padding-top: 5px;}
+.navigation ul li ul li a span {padding-left: 10px;;}
 .navigation ul li ul li a{
-    color:rgb(67, 67, 228);
+   /*  color:rgb(67, 67, 228); */
+    color:black;
     overflow: hidden; /*ẩn nội dung vượt quá khung*/
     white-space: nowrap; /*Không xuống dòng khi chữ quá dài*/
 }
+
 .navigation ul li a{
     display: block;
     text-decoration: none;
@@ -83,6 +93,12 @@ padding-left: 30px;
     width: 25px;
 
 }
+.icon_sub img {width: 30px;
+    height: 30px;
+    display: inline;
+    
+}
+
 .navigation ul li a .title {
     position: relative;
     display: block;
@@ -97,8 +113,9 @@ padding-left: 30px;
     width: calc(95% - 15px);    
     box-sizing: border-box;
     transition: 0.4s;   
-    height: 90%;
+    height: 100%;
     box-sizing: border-box;
+    overflow-y:auto;
 }
 .content.active {
     width: calc(85% - 15px);

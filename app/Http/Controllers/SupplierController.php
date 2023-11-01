@@ -17,8 +17,14 @@ class SupplierController extends Controller
     {
         $supplier = supplier::paginate(10);
     
-        return view('supplier.supplier')->with(['pag_supplier'=>$supplier]);
+        return view('supplier.supplier')->with(['dataview'=>$supplier]);
     }
+    public function getData($numrow)    {
+        
+        $supplier = supplier::paginate($numrow);
+        return view('/supplier.supplier')->with(['dataview'=>$supplier,'numrow'=>$numrow]);
+    }
+   
 
     /**
      * Show the form for creating a new resource.

@@ -14,12 +14,12 @@ class supplierSeeder extends Seeder
      */
     public function run()
     {
-        $mail = '@gmail.com';
+        
         for($i=0;$i<=1000;$i++)
         {
-            \DB::table('suppliers')->insert(['mancc'=> \Str::random(20),'tenncc'=> \Str::random(50),
-            'diachincc'=> \Str::random(50),'sdtncc'=> \Str::random(11),'emailncc'=>\Str::random(20).$mail,
-            'ttthanhtoan'=> \Str::random(50),'ghichu'=>\Str::random(10),'created_at'=> Carbon::now()]);
+            \DB::table('suppliers')->insert(['mancc'=> \Str::random(15),'tenncc'=> 'Nhà Cung cấp '.$i,
+            'diachincc'=> 'Địa chỉ nhà cung cấp '.$i,'sdtncc'=> '09'.rand(000000000,99999999),'emailncc'=>'emailnhacungcap'.$i."@gmail.com",
+            'ttthanhtoan'=> 'Phương thức, thông tin thanh toán của nhà cung cấp','ghichu'=>"Ghi chú các thông tin liên quan đến nhà cung cấp",'created_at'=> Carbon::now()]);
         }
     }
 }

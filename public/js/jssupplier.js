@@ -77,12 +77,11 @@ function addSupplier() {
                       document.getElementById('formAddNcc').reset(); //reset form input
                       $.get("http://localhost/banhang/public/api/supplier/" + txtmancc +"/find",
                       function(data){ 
+
                         $("tr:last").clone(true).appendTo("tbody");                        
                           $.each(data, function(i, item){   
-                          let html = '<a  class="btnEdit" value="' + item.id +'" href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit" src="icons/icon_edit.png" /></a>'                  
-                           html += '<a style="margin-left: 15px;" class="btnDelete" href="#" value="' + item.id +'" ><img class="icon_delete" src="icons/icon_delete.png" /></a>'   
-                                                
-                          //$("tr:last").find("td").eq(0).text(item.id);
+                          let html = '<a  class="btnEdit" value="' + item.id +'" href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit" src="./icons/icon_edit.png" /></a>'                  
+                           html += '<a style="margin-left: 15px;" class="btnDelete" href="#" value="' + item.id +'" ><img class="icon_delete" src="./icons/icon_delete.png" /></a>'   
                           $("tr:last").find("td").eq(0).text(stt);
                           $("tr:last").find("td").eq(1).text(item.mancc);
                           $("tr:last").find("td").eq(2).text(item.tenncc);
@@ -92,8 +91,8 @@ function addSupplier() {
                           $("tr:last").find("td").eq(6).text(item.ttthanhtoan);                        
                           $("tr:last").find("td").eq(7).text(item.ghichu);
                           $("tr:last").find("td").eq(8).html(html); 
-                        });
-                          
+                        });                        
+                       
                         });  
       }
     }
@@ -146,9 +145,9 @@ function UpdateSupplier(index)
         "ghichu": txtghichu
       },
       function(data,status){ 
-        let supplier = data.supplier;        
-        let html = '<a  class="btnEdit" href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img value=' +supplier.id +'class="icon_edit" src="icons/icon_edit.png" /></a>'                  
-            html += '<a style="margin-left: 15px;" value="' + supplier.id + '" class="btnDelete" href="#" ><img class="icon_delete" value="' + supplier.id + '" src="icons/icon_delete.png" /></a>'   
+        let supplier = data.supplier;   
+        let html = '<a  class="btnEdit" value="'+supplier.id +'" href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit" src="./public/icons/icon_edit.png" /></a>'                  
+            html += '<a style="margin-left: 15px;" value="' + supplier.id + '" class="btnDelete" href="#" ><img class="icon_delete" src="./icons/icon_delete.png" /></a>'   
              $.each(supplier, function(){                         
                           //$("tr").eq(idx_update_supp).find("td").eq(0).text(supplier.id);
                           $("tr").eq(idx_update_supp).find("td").eq(1).text(supplier.mancc);
@@ -161,6 +160,7 @@ function UpdateSupplier(index)
                           $("tr").eq(idx_update_supp).find("td").eq(8).html(html); 
                         });
             notification(data.message); 
+            
             
       });
 
@@ -179,13 +179,23 @@ $(document).ready(function(){
     })
   });
 function RefreshTable() {
- location.reload();
+ //location.reload();
+ $(".list_ncc").DataTable.ajax.reload();
 }
 function notification(message)
 {  
   $("#Modal_Notification").modal('show');
   $("#Modal_Notification").appendTo("body");
   $("#Notification_content").text(message);
-
  
 };
+
+$(document).ready(function(){ //load khi trọn số dòng hiển thị trên trang
+  $("#select_perpage").on('change',function(){
+    
+    let numrow =  $(this).val();  
+    let local = 'http://localhost/banhang/public/supplier=' + numrow;  
+    location.href =local;
+  }); 
+});
+

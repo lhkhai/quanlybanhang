@@ -9,14 +9,19 @@
 	<meta name="author" content="GallerySoft.info" />   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <!--Boostrap 3 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> <!--Use icon -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>     
-    <script type="text/javascript" src="{{asset('/js/jssupplier.js')}}"></script>
+
+    <script type="text/javascript" src="{{asset('/js/jsFunction.js')}}" ></script>
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssAdmin.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('/css/cssNcc.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/css/cssGeneral.css')}}">
-    <!-- <script type="module" src="{{asset('/js/jssupplier.js')}}"></script>   -->
+    <style>
+
+
+</style>
 </head>
+
 <body style="background-color:#F5F8FD"> 
     
     <div class='container'>
@@ -45,9 +50,9 @@
                         <span class="icon" title='Danh mục'><img src="{{asset('/icons/icon_list.png' )}}"  /></span>
                         <span class="title">Danh mục</span>
                     </a>
-                    <ul>
-                        <li><a href="{{asset('supplier')}}">Nhà cung cấp</a></li>
-                        <li><a href="#">Khách hàng</a></li>
+                    <ul class="icon_sub">
+                        <li><a href="{{asset('supplier')}}" ><img  src="{{asset('/icons/icon_supplier_black.png')}}"><span>Nhà cung cấp</span></a></li>
+                        <li><a href="{{asset('customer')}}" ><img  src="{{asset('/icons/icon_customer2.png')}}"><span >Khách hàng</span></a></li>
                         <li><a href="#">Nhóm Sản phẩm</a></li>
                         <li><a href="#">Sản phẩm</a></li>
                     </ul>

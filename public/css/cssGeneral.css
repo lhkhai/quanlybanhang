@@ -1,6 +1,6 @@
 .thaotac {width: 100px;}
-.stt {width: 50px;
-text-align: center;}
+.stt {  width: 50px;
+        text-align: center;}
 .divPopup {
     position: fixed;
     top:0;
@@ -11,3 +11,23 @@ text-align: center;}
     display: none;
 }
 /*Form thông báo */
+.pag_supplier { /* div pagination */
+    position: relative;
+    margin-top: 15px;
+    height: 40px;
+    width: 100%;
+}
+.icon_title {
+    height: 35px;
+    width:35px;
+}
+.div_pagination { /* div pagination */
+    position: relative;
+    margin-top: 15px;
+    height: 40px;
+    width: 100%;
+    
+}
+.div_search{
+    background-color: white;
+}

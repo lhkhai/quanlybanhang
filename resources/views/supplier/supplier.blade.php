@@ -1,21 +1,10 @@
 @extends('manage')
 @section('title')Suppliers @endsection
 @section('content')
-<script>
-  $(document).ready(function(){
-   
+<script type="text/javascript" src="{{asset('/js/jssupplier.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/css/cssNcc.css')}}">
   
-
-  $("#sdtncc").blur(function(){
-    var regExp = /^(0[235789][0-9]{8}$)/;
-    var phone = document.getElementById("sdtncc").value;
-    if (!regExp.test(phone)) 
-        alert('Số điện thoại không hợp lệ!');
-});
-});
-</script>
-  
-<div id="title_ncc">DANH SÁCH NHÀ CUNG CẤP 
+<div id="title_ncc"><img class="icon_title"  src="{{asset('/icons/icon_supplier_blue.png')}}"><span>DANH SÁCH NHÀ CUNG CẤP </span>
 <input id="addncc" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" value="+ Thêm" />
 </div>
 <div class='list_ncc'>
@@ -24,16 +13,15 @@
           <tr class='title_table_ncc'><th class='stt'>STT</th><th class='mancc'>Mã NCC</th><th class='tenncc'>Tên NCC</th><th class='diachincc'>Địa chỉ NCC</th><th class='sdtncc'>Số điện thoại</th><th class='ttthanhtoan'>Email</th><th class='ttthanhtoan'>TT Thanh toán</th><th class='ghichu'>Ghi chú</th><th class="thaotac">Thao tác</th></tr>
       </thead>
     <tbody id = 'list_ncc'>    
-            <!--  Hiển thị nội dung table --> 
-          <script>//load()</script>
-          @if(isset($pag_supplier))
-           
-            @foreach($pag_supplier as $stt=>$value)
-            <tr><td>{{$stt+1}}</td><td>{{$value->mancc}}</td><td>{{$value->tenncc}}</td><td>{{$value->diachincc}}</td>
+            <!--  Hiển thị nội dung table -->           
+          @if(isset($dataview))
+           <?php  $stt=($dataview->currentPage()-1)* $dataview->perPage(); ?>
+            @foreach($dataview as $key=>$value)
+            <tr><td>{{++$stt}}</td><td>{{$value->mancc}}</td><td>{{$value->tenncc}}</td><td>{{$value->diachincc}}</td>
             <td>{{$value->sdtncc}}</td><td>{{$value->emailncc}}</td><td>{{$value->ttthanhtoan}}</td><td>{{$value->ghichu}}</td>
             <td>
-              <a  class="btnEdit" href="#" value="{{$value->id}}" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit"  src="icons/icon_edit.png" /></a>                
-              <a style="margin-left: 15px;" value="{{$value->id}}" class="btnDelete" href="#" ><img   class="icon_delete" src="icons/icon_delete.png" /></a>                 
+              <a  class="btnEdit" href="#" value="{{$value->id}}" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit"  src="{{asset('icons/icon_edit.png')}}" /></a>                
+              <a style="margin-left: 15px;" value="{{$value->id}}" class="btnDelete" href="#" ><img   class="icon_delete" src="{{asset('icons/icon_delete.png')}}" /></a>                 
             </td>
             @endforeach
           @endif
@@ -41,13 +29,15 @@
   </table>
   
 </div>
-<div class="pag_supplier">
-    <div>
-    {{$pag_supplier->links('pagination')}} 
-    </div>
-    <div class='total_record_supplier' > Tổng: {{$pag_supplier->total()}} dòng, {{$pag_supplier->lastPage()}} trang.
-    <div>
-  </div>
+<div class="div_pagination">
+  @if(isset($dataview))
+    {{$dataview->links('pagination')}} 
+      <script>
+        let txt =  'Tổng: ' + {{$dataview->total()}} + ' dòng,' + {{$dataview->lastPage()}} + ' trang';
+        $(".total_record").text(txt);
+      </script>
+    @endif
+</div>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">         
       
@@ -80,7 +70,7 @@
     <div class="form-group">
       <label class="control-label col-sm-3" for="text">Số điện thoại:</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="sdtncc" maxlenght="10" name="sdtncc" required />
+        <input type="text" class="form-control" id="edit_sdtncc" onblur="CheckNumberphone('edit_sdtncc')" onkeypress="return NumberKey(event)" maxlenght="10" name="sdtncc" required />
       </div>
     </div>
     <div class="form-group">
@@ -108,10 +98,8 @@
         </div>
       </div>
   </form>
-  </div> <!------------------------------------ Form thêm ---------------------------------------------------------->
-  
-  <!------------------------------------ Form cập nhật------------------------------------------------------>
-  <div class="modal fade" id="myModalUpdate" role="dialog">
+  </div>
+  <div class="modal fade" id="myModalUpdate" role="dialog"><!--                       Modal Update                                            -->
     <div class="modal-dialog">         
       
       <div class="modal-content">
@@ -144,7 +132,7 @@
     <div class="form-group">
       <label class="control-label col-sm-3" for="text">Số điện thoại:</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="sdtncc" maxlenght="10" name="Edit_sdtncc" required />
+        <input type="text" class="form-control"  id="sdtncc" onblur="CheckNumberphone('sdtncc')" onkeypress="return NumberKey(event)" maxlenght="10" name="Edit_sdtncc" required />
       </div>
     </div>
     <div class="form-group">
@@ -172,14 +160,16 @@
         </div>
       </div>
   </form>
-  </div>  <!---------------------------Kết thúc Form cập nhật------------------------------------------------> 
+  </div>  <!---------------------------End modal update------------------------------------------------> 
 
 <script>      
 $(document).ready(function(){
             $("#addncc").click(function(){
-                $('#myModal').appendTo("body");/* Chuyển form myModal ra thẻ ngoài cùng tránh lỗi popup bị mờ*/
+                $('#myModal').appendTo("body");
             });   
 });
 </script>  
-  
+  @if(isset($numrow))
+  <script>$("#select_perpage").val('{{$numrow}}')</script> <!-- Set selectbox value -->
+  @endif
 @endsection

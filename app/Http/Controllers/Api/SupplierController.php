@@ -10,16 +10,22 @@ class SupplierController extends Controller
     
     public function index()
     {
-       $suppliers = \DB::table('suppliers')->paginate(10);
-       if($suppliers->count()>0){       
-       return response()->json([
-            'status_code'=> 200,
-            'data'=>$suppliers],200);  
-       } else {
+       /* $suppliers = \DB::table('suppliers')->paginate(10);
+       if($suppliers->count()>0){    
+        return view('/supplier.test')->with(['pag_supplier'=>$suppliers]);
+       //return response()->json(['data'=>$suppliers],200);  
+       } */ /* else {
         return response()->JSON(['status_code'=> 404,
                                 'message'=>'Không có mẫu tin nào'],
                                 200);
-       }
+       } */
+    }
+    public function loadbynumrow($numrow)
+    {
+       $suppliers = \DB::table('suppliers')->paginate($numrow);
+       //if($suppliers->count()>0){    
+        return view('/supplier.supplier')->with(['pag_supplier'=>$suppliers]);      
+      // } 
     }
     public function store(Request $request)
     {
