@@ -14,8 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('id');
+            $table->string('manhom');
+            $table->string('tennhom');
+            $table->string('diengiai')->nullable();
+            $table->dateTime('created_at')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->dateTime('updated_at')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->dateTime('deleted_at')->nullable();
+            $table->integer('deleted_by')->nullable();
         });
     }
 

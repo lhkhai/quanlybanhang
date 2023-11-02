@@ -121,9 +121,8 @@ let idkh = $(this).attr('value');
 $("#btnSave_Update").click(function(){
     UpdateCustomer(index_row_update); //call Updatecustomer function with parameters index tr
 });
-
-
 });
+
 function UpdateCustomer(index_row_update)
 { 
 let index_row = index_row_update + 1;
@@ -135,6 +134,7 @@ let txtsdtkh = $("input[name='Edit_sdt']").val();
 let txtemailkh = $("input[name='Edit_email']").val();
 let txtdiemtichluy = $("input[name='Edit_diemtichluy']").val();
 let txtghichu = $("input[name='Edit_ghichu']").val();
+alert(txtdiachikh);
 $("#myModalUpdate").modal("hide");
 $.post("http://localhost/banhang/public/api/customer/" + txtidkh + "/edit",
   {

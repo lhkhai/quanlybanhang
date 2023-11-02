@@ -1,5 +1,4 @@
 .sub_body { height: calc(100% - 80px);  /*định chiều cao cho form danh sách*/
-   
     overflow-y: auto;}
 .title_table {
     background-color: #6C757D;
@@ -16,9 +15,10 @@ table .thaotac {
     text-align: center;
     width: 60px;
 }
-.tdEditDel {width: 25px;
-border-left: none;}
-
+.tdEditDel {
+    width: 25px;
+    border-left: none;
+    }
 .title_top {
     background-color: white;
     color: blue;
@@ -33,6 +33,7 @@ border-left: none;}
     right: 5px;
     font-size: medium;
     font-weight: bold;} /*button thêm*/
+.idncc {display: none;} /*An cot ID */
 
 tbody {background-color: white;    
 } 
@@ -57,11 +58,5 @@ tbody {background-color: white;
 #btnEdit {height: 30px;
         width: 30px;}
 #btnEdit:hover {background-color:rgb(59, 136, 199) ;}
-.div_search #input_search_makh, #input_search_tenkh,#input_search_sdt
-{
-    height: 34px;
-    width: 150px;
-    display: inline;
-}
 
 

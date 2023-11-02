@@ -52,8 +52,8 @@
                     </a>
                     <ul class="icon_sub">
                         <li><a href="{{asset('supplier')}}" ><img  src="{{asset('/icons/icon_supplier_black.png')}}"><span>Nhà cung cấp</span></a></li>
-                        <li><a href="{{asset('customer')}}" ><img  src="{{asset('/icons/icon_customer2.png')}}"><span >Khách hàng</span></a></li>
-                        <li><a href="#">Nhóm Sản phẩm</a></li>
+                        <li><a href="{{asset('customer')}}" ><img  src="{{asset('/icons/icon_customer_black.png')}}"><span >Khách hàng</span></a></li>
+                        <li><a href="{{asset('categories')}}"><img  src="{{asset('/icons/icon_category_black.png')}}"><span>Nhóm Sản phẩm</span></a></li>
                         <li><a href="#">Sản phẩm</a></li>
                     </ul>
                 </li>

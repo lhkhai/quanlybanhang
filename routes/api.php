@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\supplierController;
 use App\Http\Controllers\Api\ApiCustomerController;
+use App\Http\Controllers\Api\ApiCategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,11 @@ Route::get('/customer/{id}',[ApiCustomerController::class,'show']);
 Route::post('customer/{id}/edit',[ApiCustomerController::class,'update']);
 Route::get('customer/{id}/delete',[ApiCustomerController::class,'destroy']);
 Route::get('/customer/{arr}/search',[ApiCustomerController::class,'search']);
+
+//Categories
+Route::post('/categories',[ApiCategoriesController::class,'create']);
+Route::post('categories/{id}/update',[ApiCategoriesController::class,'update']);
+Route::get('categories/{id}/delete',[ApiCategoriesController::class,'delete']);
+Route::get('categories/{id}/show',[ApiCategoriesController::class,'show']);
+
 

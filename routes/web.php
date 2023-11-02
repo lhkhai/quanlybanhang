@@ -5,6 +5,7 @@ use App\Http\Controllers\supplierController;
 use App\Models\supplier;
 use App\Models\customer;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CategoriesController;
 use Carbon\Carbon;
 
 /*
@@ -29,7 +30,6 @@ Route::get('/customer',[CustomerController::class,'index']);
 Route::get('/customer&perpage={rowperpage}',[CustomerController::class,'getData']);
 Route::get('customer/search',[CustomerController::class,'search']);
 
-Route::get('/test',[CustomerController::class,'test']);
-Route::get('/test&perpage={rowperpage}',[CustomerController::class,'getData_test']);
-Route::get('test/search',[CustomerController::class,'search_test']);
+Route::get('/categories',[CategoriesController::class,'index']);
+
 
