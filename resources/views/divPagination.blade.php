@@ -6,4 +6,10 @@
         $(".total_record").text(txt);
       </script>
 @endif
+</script>  
+  @if(isset($rowperpage))
+  <script>$("#select_perpage").val('{{$rowperpage}}')
+  </script> <!-- Set selectbox value -->
+  
+  @endif
 </div>

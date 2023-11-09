@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\supplierController;
 use App\Http\Controllers\Api\ApiCustomerController;
 use App\Http\Controllers\Api\ApiCategoriesController;
+use App\Http\Controllers\Api\ApiProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,9 @@ Route::post('categories/{id}/update',[ApiCategoriesController::class,'update']);
 Route::get('categories/{id}/delete',[ApiCategoriesController::class,'delete']);
 Route::get('categories/{id}/show',[ApiCategoriesController::class,'show']);
 
+//products
+Route::post('product',[ApiProductController::class,'store']);
+Route::post('product/{id}/update',[ApiProductController::class,'update']);
+Route::get('product/{id}/delete',[ApiProductController::class,'destroy']);
+Route::get('product/{id}/show',[ApiProductController::class,'show']);
 

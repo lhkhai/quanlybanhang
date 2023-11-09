@@ -189,13 +189,3 @@ function notification(message)
   $("#Notification_content").text(message);
  
 };
-
-$(document).ready(function(){ //load khi trọn số dòng hiển thị trên trang
-  $("#select_perpage").on('change',function(){
-    
-    let numrow =  $(this).val();  
-    let local = 'http://localhost/banhang/public/supplier=' + numrow;  
-    location.href =local;
-  }); 
-});
-

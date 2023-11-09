@@ -6,6 +6,7 @@ use App\Models\supplier;
 use App\Models\customer;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductController;
 use Carbon\Carbon;
 
 /*
@@ -31,5 +32,8 @@ Route::get('/customer&perpage={rowperpage}',[CustomerController::class,'getData'
 Route::get('customer/search',[CustomerController::class,'search']);
 
 Route::get('/categories',[CategoriesController::class,'index']);
+Route::get('/categories&perpage={rowperpage}',[CategoriesController::class,'getData']);
+
+Route::get('/product{rowperpage?}',[ProductController::class,'index'])->name('product.index');
 
 

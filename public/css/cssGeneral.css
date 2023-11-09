@@ -31,3 +31,16 @@
 .div_search{
     background-color: white;
 }
+.large-image { /*Định dạng hiển thị ảnh lớn trong trang product*/
+  display: none;
+  position: fixed;   
+  width: 30%;
+  height: 30%;    
+  z-index: 999;
+  top: 10%;
+  left: 75%;   
+}
+.large-image img {
+  max-height: 300px;
+  max-width: 300px;
+}

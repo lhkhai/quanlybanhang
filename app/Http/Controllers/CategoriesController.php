@@ -13,5 +13,10 @@ class CategoriesController extends Controller
         $categories = categories::paginate(10);
         return view('category.categories')->with(['dataview'=>$categories]);
     }
+    public function getData($rowperpage)
+    {
+        $categories = categories::paginate($rowperpage);
+        return view('category.categories')->with(['dataview'=>$categories,'rowperpage'=>$rowperpage]);
+    }
     
 }

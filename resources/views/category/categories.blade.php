@@ -110,10 +110,7 @@
   </div>  <!---------------------------End modal update------------------------------------------------> 
 
 
-  @if(isset($rowperpage))
-  <script>$("#select_perpage").val('{{$rowperpage}}')
-  </script> <!-- Set selectbox value -->
-  @endif
+  
 
 
 

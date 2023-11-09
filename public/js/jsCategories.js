@@ -29,17 +29,17 @@ function load(rowperpage = 10){
     });
 };
 //======================================================================//
-function OpenModal()
+/* function OpenModal()
 {
     $('#myModal').appendTo("body");
-}
+} */
   
 function addRecord() {    
     let manhom = $("input[name='manhom']").val();
     let tennhom = $("input[name='tennhom']").val();
     let diengiai = $("input[name='diengiai']").val();
     $('#myModal').modal('hide'); 
-    $.post("http://localhost:8000/api/categories",
+    $.post("http://localhost/banhang/public/api/categories",
     {
       "manhom": manhom,
       "tennhom": tennhom,
@@ -113,14 +113,6 @@ $("#Modal_Notification").appendTo("body");
 $("#Notification_content").text(message);
 
 };
-
-$(document).ready(function(){ //load khi trọn số dòng hiển thị trên trang
-  $("#select_perpage").on('change',function(){
-    let numrow =  $(this).val();   
-    let local = 'http://localhost/banhang/public/customer&perpage=' + numrow; 
-    location.href =local;
-  });
-});
 
 
     

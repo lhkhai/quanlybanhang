@@ -134,7 +134,6 @@ let txtsdtkh = $("input[name='Edit_sdt']").val();
 let txtemailkh = $("input[name='Edit_email']").val();
 let txtdiemtichluy = $("input[name='Edit_diemtichluy']").val();
 let txtghichu = $("input[name='Edit_ghichu']").val();
-alert(txtdiachikh);
 $("#myModalUpdate").modal("hide");
 $.post("http://localhost/banhang/public/api/customer/" + txtidkh + "/edit",
   {
@@ -191,12 +190,4 @@ $("#Modal_Notification").appendTo("body");
 $("#Notification_content").text(message);
 
 };
-
-$(document).ready(function(){ //load khi trọn số dòng hiển thị trên trang
-  $("#select_perpage").on('change',function(){
-    let numrow =  $(this).val();   
-    let local = 'http://localhost/banhang/public/customer&perpage=' + numrow; 
-    location.href =local;
-  });
-});
 
