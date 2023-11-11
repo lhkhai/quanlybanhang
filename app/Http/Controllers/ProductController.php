@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\product;
 use App\Models\categories;
+use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
@@ -25,13 +26,24 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $query = product::all();
+        $masp = $request->input_search_masp;
+        $tensp = $request->input_search_tensp;
+        $nhomsp = $request->input_search_nhomsp;
+       // $chatlieu = $request->input_search_chatlieu;
+        $chatlieu = $request->input('input_search_chatlieu');
+
+        if(empty($masp) && empty($tensp) && empty($nhomsp) & empty($chatlieu))
+        {
+             return redirect('product');
+        }
+        else{
         if($request->has('input_search_masp'))
-         {            
-           // $query = customer::where('masp','LIKE',"%".$request->input('input_search_masp')."%");
-            $query->where(function ($q) use ($request){
-                return $q->where('masp','LIKE','%'.$request->input('input_search_masp').'%');
-                });
+         {  
+            $query = \DB::table('products')->join('categories','categories.id','=','products.categories_id')
+                    ->select('categories.tennhom as tennhom','products.*');
+          
+           $query->where('masp','LIKE',"%".$request->input('input_search_masp')."%");
+            
          }
         if($request->has("input_search_tensp"))
         {
@@ -43,17 +55,19 @@ class ProductController extends Controller
         {
             $query->where(function ($q) use ($request)
             {
-                return $q->where('categories_id', 'LIKE','%'.$request->input_search_nhomsp . '%');
+                return $q->where('tennhom', 'LIKE','%'.$request->input_search_nhomsp . '%');
             });
         } 
-        $dataview = $query->paginate(10);  
-        //return view('/product.product')->with(['dataview'=>$dataview,'thongbao'=>'test_response']); 
-        return redirect('/customer');
+        if($request->has('input_search_chatlieu'))
+        {
+            $query->where(function ($q) use ($request){
+               return $q->where('chatlieu','LIKE','%'.$request->input('input_search_chatlieu').'%');
+            });
+        }
+        $dataview = $query->paginate(10); 
+        return view('/product.product')->with(['dataview'=>$dataview]); 
+        }
 
-    }
-    public function test()
-    {
-        return view('customer.customer');
     }
     
     

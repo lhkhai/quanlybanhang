@@ -9,14 +9,13 @@
 </div>
 <div class='div_search'> 
     <form class='form_search' method='get' action='{{asset("product/search")}}'> 
-        <!-- <input type='text'  class="form-control" placeholder='Nhập mã SP'  name='input_search_masp' value="{{request('input_search_makh')}}" />
+        <input type='text'  class="form-control" placeholder='Nhập mã SP'  name='input_search_masp' value="{{request('input_search_masp')}}" />
         <input type='text' class="form-control" placeholder='Nhập tên SP'  name='input_search_tensp' value="{{request('input_search_tensp')}}"/>
         <input type='text' class="form-control" placeholder='Nhóm sản phẩm' name='input_search_nhomsp' value="{{request('input_search_nhomsp')}}"/>
         <input type='text' class="form-control" placeholder='Chất liệu' name='input_search_chatlieu' value="{{request('input_search_chatlieu')}}"/>
         <button class="btn btn-primary" id='btn_search'>        
             <span class="glyphicon glyphicon-search"></span> Tìm kiếm
-        </button> -->
-        <a href="{{asset('product/test')}}" >test link</a>
+        </button>
         <input class="btn btn-success" type='submit' id='btn_search' value='Tìm kiếm'/>
         <input style="margin-left:10px;" class="btn btn-success" type="submit" id='btn_export' value='Xuất file Excel'/>
 

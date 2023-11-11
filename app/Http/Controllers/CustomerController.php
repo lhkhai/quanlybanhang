@@ -22,11 +22,10 @@ class CustomerController extends Controller
     
     public function search(Request $request)
     {
-        //if(empty($request->input('input_search_makh')) && empty($request->input('input_search_tenkh')) && empty($request->input('input_search_sdt')))
-        if(empty($request))
-        {
-        $customer = customer::paginate(10);
-        return redirect('/customer')->with(['dataview'=>$customer]); 
+        if(empty($request->input('input_search_makh')) && empty($request->input('input_search_tenkh')) && empty($request->input('input_search_sdt')))
+        
+        {        
+         return redirect('customer');
         }
         else {
          if($request->has('input_search_makh'))
