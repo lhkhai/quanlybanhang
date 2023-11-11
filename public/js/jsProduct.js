@@ -6,8 +6,8 @@ function update(id) {
         $.each(data,function(i,item){        
         $("input[name='masp_edit']").val(item.masp);
         $("input[name='tensp_edit']").val(item.tensp);
-        $("input[name='categories_id_edit']").val(item.categories_id);
-        $("input[name='chatlieu_edit']").val(item.chatlieu); 
+        $("#categories_id_edit").val(item.categories_id);
+        $("#chatlieu_edit").val(item.chatlieu); 
         $("input[name='kichthuoc_edit']").val(item.kichthuoc);
         $("input[name='giaban_edit']").val(item.giaban);
         $("input[name='soluong_edit']").val(item.soluong);
@@ -89,3 +89,39 @@ function destroy(id){
     });
   }
 }
+
+$(document).ready(function() { //sort giá trị theo từng cột
+    
+    $("#title_table th").click(function() {
+      var table = $(this).parents('table').eq(0);        
+      var columnIndex = $(this).index();
+      var rows = table.find('tr:gt(0)').toArray().sort(comparator(columnIndex));
+        this.asc = !this.asc;
+        if (!this.asc) { rows = rows.reverse(); }
+        for (var i = 0; i < rows.length; i++)
+         {
+             table.append(rows[i]);
+         }
+         updateIndexColumn();
+    });
+    function comparator(index) {       
+            return function(a, b) {            
+                var valA = getCellValue(a, index);
+                var valB = getCellValue(b, index);
+                return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
+            };       
+    }
+    function getCellValue(row, index) {  
+        if(index==10)
+        {         
+           return $(row).children('td').eq(index).attr('value');  
+        }      
+         return $(row).children('td').eq(index).text();          
+        
+    }
+    function updateIndexColumn() {
+    $('#title_table tbody tr').each(function (index) {
+      $(this).children('td').eq(0).text(index + 1);
+    });
+    }
+  });

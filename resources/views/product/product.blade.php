@@ -9,11 +9,17 @@
 </div>
 <div class='div_search'> 
     <form class='form_search' method='get' action='{{asset("product/search")}}'> 
-        <input type='text'  class="form-control" placeholder='Nhập mã SP'  name='input_search_masp' value="{{request('input_search_makh')}}" />
+        <!-- <input type='text'  class="form-control" placeholder='Nhập mã SP'  name='input_search_masp' value="{{request('input_search_makh')}}" />
         <input type='text' class="form-control" placeholder='Nhập tên SP'  name='input_search_tensp' value="{{request('input_search_tensp')}}"/>
         <input type='text' class="form-control" placeholder='Nhóm sản phẩm' name='input_search_nhomsp' value="{{request('input_search_nhomsp')}}"/>
         <input type='text' class="form-control" placeholder='Chất liệu' name='input_search_chatlieu' value="{{request('input_search_chatlieu')}}"/>
-        <input class="btn btn-primary" type="submit" id='btn_search' value='Tìm kiếm'/><input style="margin-left:10px;" class="btn btn-success" type="submit" id='btn_export' value='Xuất file Excel'/>
+        <button class="btn btn-primary" id='btn_search'>        
+            <span class="glyphicon glyphicon-search"></span> Tìm kiếm
+        </button> -->
+        <a href="{{asset('product/test')}}" >test link</a>
+        <input class="btn btn-success" type='submit' id='btn_search' value='Tìm kiếm'/>
+        <input style="margin-left:10px;" class="btn btn-success" type="submit" id='btn_export' value='Xuất file Excel'/>
+
     </form>
 </div>
 <div class='view_table'>
@@ -21,7 +27,7 @@
         <thead>
           <tr class='title_table'><th>STT</th><th>Mã SP</th><th >Tên Sản phẩm</th>
           <th >Nhóm SP</th><th>Chất liệu</th><th>Size</th>
-          <th>Số lượng tồn</th><th>Giá bán</th><th>Hinh ảnh</th><th>Mô tả</th><th stle="width: 40px;" colspan=2>Thao tác</th>
+          <th>SL Tồn</th><th>Giá bán</th><th>Hinh ảnh</th><th>Mô tả</th><th>SP mới</th><th stle="width: 40px;" colspan=2>Thao tác</th>
           </tr>
         </thead>
         <tbody id = 'content_table'> 
@@ -33,15 +39,15 @@
            @if(isset($dataview)) 
            <?php $stt=($dataview->currentPage()-1)* $dataview->perPage();  ?>
             @foreach($dataview as $key=>$value)
-            <tr><td>{{++$stt}}</td><td>{{$value->masp}}</td><td>{{$value->tensp}}</td><td>{{$value->tennhom}}</td>
-            <td>{{$value->chatlieu}}</td><td>{{$value->kichthuoc}}</td><td>{{$value->soluong}}</td><td>{{$value->giaban}}</td>
+            <tr><td class="no-sort">{{++$stt}}</td><td>{{$value->masp}}</td><td>{{$value->tensp}}</td><td>{{$value->tennhom}}</td>
+            <td>{{$value->chatlieu}}</td><td style="text-align:center;">{{$value->kichthuoc}}</td><td style='text-align: right;'>{{$value->soluong}}</td><td style='text-align: right;'>{{$value->giaban}}</td>
             <td>
                 @if($value->hinhanh)
                    <?php  $img = json_decode($value->hinhanh);?>
                    <img style="height:40px;width:40px;" src='{{asset("imgUpload/imgProduct/". $img[0])}}' alt='Images Product' class='imgProduct' data-large='{{asset("imgUpload/imgProduct/". $img[0])}}'>                    
                 @endif
                 </td>
-            <td>{{$value->mota}}</td>
+            <td>{{$value->mota}}</td><td value="{{$value->spmoi}}" style='text-align: center;'>@if($value->spmoi==1)<img  class='status_new' src='{{asset("icons/icon_status_new1.png")}}'>@endif</td>
             <td class="tdEditDel">
               <a  class="btnEdit" href="#" onclick="update({{$value->id}})" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalUpdate" ><img class="icon_edit"  src="{{asset('icons/icon_edit.png')}}" /></a>    
             </td>
@@ -81,14 +87,29 @@
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="text">Nhóm SP:</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="text" name="categories_id"  />
+                <div class="col-sm-9">                    
+                    <select class="form-control" id="text" name='categories_id' >
+                        @isset($categories)
+                            @foreach($categories as $key=>$value)
+                        <option value="{{$value->id}}">{{$value->tennhom}}</option>
+                            @endforeach
+                        @endif
+                    </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="text">Chất liệu:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="text" name="chatlieu"  />
+                   <!--  <input type="text" class="form-control" id="text" name="chatlieu"  /> -->
+                   <select class='form-control' name="chatlieu">
+                        <option value="Vải Jeans">Vải Jeans</option>
+                        <option value="Vải Silk">Silk (lụa)</option>
+                        <option value="Vải Cotton">Vải Cotton</option>
+                        <option value="Vải Kaki">Vải Kaki</option>
+                        <option value="Vải Len">Vải Len</option>
+                        <option value="Vải Đũi">Vải Đũi</option>
+                        <option value="Vải Thun">Vải Thun</option>
+                   </select>
                 </div>
             </div>
             <div class="form-group">
@@ -173,13 +194,27 @@
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="text">Nhóm SP:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="text" name="categories_id_edit"  />
+                        <select class="form-control" id="categories_id_edit" name='categories_id_edit' >
+                            @isset($categories)
+                                @foreach($categories as $key=>$value)
+                            <option value="{{$value->id}}">{{$value->tennhom}}</option>
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3" for="text">Chất liệu:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="text" name="chatlieu_edit"  />
+                        <select class='form-control' id="chatlieu_edit" name="chatlieu_edit">
+                            <option value="Vải Jeans">Vải Jeans</option>
+                            <option value="Vải Silk">Silk (lụa)</option>
+                            <option value="Vải Cotton">Vải Cotton</option>
+                            <option value="Vải Kaki">Vải Kaki</option>
+                            <option value="Vải Len">Vải Len</option>
+                            <option value="Vải Đũi">Vải Đũi</option>
+                            <option value="Vải Thun">Vải Thun</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -242,4 +277,7 @@
 <div class="large-image"> <!-- Div hiển thị ảnh lớn hình ảnh sản phẩm ---->
     <img src="" alt="Image Product">
 </div>
+@isset($test)
+<script>alert('đã response')</script>
+@endif
 @endsection

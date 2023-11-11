@@ -22,8 +22,8 @@ class CustomerController extends Controller
     
     public function search(Request $request)
     {
-        if(empty($request->input('input_search_makh')) && empty($request->input('input_search_tenkh')) && empty($request->input('input_search_sdt')))
-        //if(empty($request))
+        //if(empty($request->input('input_search_makh')) && empty($request->input('input_search_tenkh')) && empty($request->input('input_search_sdt')))
+        if(empty($request))
         {
         $customer = customer::paginate(10);
         return redirect('/customer')->with(['dataview'=>$customer]); 
@@ -50,5 +50,9 @@ class CustomerController extends Controller
         $dataview = $query->paginate(10);  
        return view('/customer.customer')->with(['dataview'=>$dataview]);
         }
-    }    
+    }  
+    public function test()
+    {
+        return view('product.product')->with(['test'=>'phản hồi']);
+    }  
 }

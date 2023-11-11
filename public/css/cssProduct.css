@@ -74,6 +74,7 @@ tbody {background-color: white;
     margin: 0;
     padding-bottom: 0;
 }
-
+.status_new {height:30px;
+            width:40px;}
 
 

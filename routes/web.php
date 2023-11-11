@@ -29,11 +29,14 @@ Route::get('/supplier={numrow}',[SupplierController::class,'getData']); //load p
 
 Route::get('/customer',[CustomerController::class,'index']);
 Route::get('/customer&perpage={rowperpage}',[CustomerController::class,'getData']);
-Route::get('customer/search',[CustomerController::class,'search']);
+//Route::get('customer/search',[CustomerController::class,'search1']);
 
 Route::get('/categories',[CategoriesController::class,'index']);
 Route::get('/categories&perpage={rowperpage}',[CategoriesController::class,'getData']);
 
 Route::get('/product{rowperpage?}',[ProductController::class,'index'])->name('product.index');
+Route::get('product/test',function(){
+    return redirect('')->route('product.index');
+});
 
 

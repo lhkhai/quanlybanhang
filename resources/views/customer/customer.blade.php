@@ -10,15 +10,11 @@
 </div>
 <div class='div_search'> 
   <form class='form_search' method='get' action='{{asset("customer/search")}}'> 
- 
-    
-  <input type='text'  class="form-control" placeholder='Nhập mã KH'  name='input_search_makh' value="{{request('input_search_makh')}}" id='input_search_makh' />
-  <input type='text' class="form-control" placeholder='Nhập tên KH'  name='input_search_tenkh' value="{{request('input_search_tenkh')}}" id='input_search_tenkh' />
-  <input type='text' class="form-control" placeholder='Nhập số điệnt thoại' name='input_search_sdt' value="{{request('input_search_sdt')}}" id='input_search_sdt' />
-  <input class="btn btn-success" type="submit" id='btn_search' value='Tìm kiếm'/>
-
- 
-</form>
+    <input type='text'  class="form-control" placeholder='Nhập mã KH'  name='input_search_makh' value="{{request('input_search_makh')}}" id='input_search_makh' />
+    <input type='text' class="form-control" placeholder='Nhập tên KH'  name='input_search_tenkh' value="{{request('input_search_tenkh')}}" id='input_search_tenkh' />
+    <input type='text' class="form-control" placeholder='Nhập số điệnt thoại' name='input_search_sdt' value="{{request('input_search_sdt')}}" id='input_search_sdt' />
+    <input class="btn btn-success" type="submit" id='btn_search' value='Tìm kiếm'/>
+  </form>
 </div>
 <div class='sub_body'>
   <table class="table table-bordered" id="view_table_supplier">

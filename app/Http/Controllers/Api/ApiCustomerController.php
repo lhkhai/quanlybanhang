@@ -145,42 +145,5 @@ class ApiCustomerController extends Controller
             return response()->JSON(['message'=> "Not found!"]);
         }
     }
-    public function search($arr)
-    {
-        $makh= $arr[0];
-        $tenkh= $arr[1];
-        $sdt= $arr[2];
-
-       // if(empty($request->input('input_search_makh')) && empty($request->input('input_search_tenkh')) && empty($request->input('input_search_sdt')))
-       if(empty($arr)) 
-       {
-        $customer = customer::paginate(10);
-        return redirect('/customer')->with(['dataview'=>$customer]); 
-        }
-        else {
-         if(!empty($makh))
-         {
-            
-            $query = customer::where('makh','LIKE',"%".$makh."%");
-         }
-        if(!empty($tenkh))
-        {
-            $query->where(function ($q) use ($request){
-            return $q->where('tenkh','LIKE','%'.$tenkh.'%');
-            });
-        }
-         if (!empty($sdt))
-        {
-            $query->where(function ($q) use ($request)
-            {
-                return $q->where('sdt', 'LIKE','%'.$sdt . '%');
-            });
-        } 
-        $dataview = $query->paginate(10);  
-       
-        $return_input=[$makh,$tenkh,$sdt];
-        return view('/customer.customer')->with(['dataview'=>$dataview,'return_input'=>$return_input]);
-        }
-    }
     
 }

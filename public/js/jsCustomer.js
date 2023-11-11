@@ -185,9 +185,8 @@ $(document).on("click",".btnDelete", function(){
 
 function notification(message)
 {  
-$("#Modal_Notification").modal('show');
-$("#Modal_Notification").appendTo("body");
-$("#Notification_content").text(message);
-
+  $("#Modal_Notification").modal('show');
+  $("#Modal_Notification").appendTo("body");
+  $("#Notification_content").text(message);
 };
 

@@ -38,7 +38,6 @@ Route::get('customer/{code}/find',[ApiCustomerController::class,'findbycode']);
 Route::get('/customer/{id}',[ApiCustomerController::class,'show']);
 Route::post('customer/{id}/edit',[ApiCustomerController::class,'update']);
 Route::get('customer/{id}/delete',[ApiCustomerController::class,'destroy']);
-Route::get('/customer/{arr}/search',[ApiCustomerController::class,'search']);
 
 //Categories
 Route::post('/categories',[ApiCategoriesController::class,'create']);
